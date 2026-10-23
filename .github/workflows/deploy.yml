@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "motto-yoku-miru-company-github-pages-easy.zip"
+      - "kaisha-ni-iku-source-v12.zip"
       - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
@@ -26,12 +26,15 @@ jobs:
     steps:
       - name: Checkout files
         uses: actions/checkout@v4
-      - name: Extract exhibit package
+      - name: Extract Astra project
         run: |
           set -eu
-          mkdir -p _site
-          unzip -q motto-yoku-miru-company-github-pages-easy.zip -d _site
-          test -s _site/index.html
+          mkdir -p _source _site
+          unzip -q kaisha-ni-iku-source-v12.zip -d _source
+          test -s _source/kaisha-ni-iku/dist/index.html
+          cp -a _source/kaisha-ni-iku/dist/. _site/
+          test -s _site/app.js
+          test -s _site/vendor/three.module.js
           touch _site/.nojekyll
       - name: Configure Pages
         uses: actions/configure-pages@v5
